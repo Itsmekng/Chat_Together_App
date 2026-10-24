@@ -1,0 +1,55 @@
+import { v4 as uuidv4 } from 'uuid';
+import { personalChat } from '../Model';
+import { Op } from 'sequelize';
+import chatMessage from '../Model/chatMessage.model';
+
+const newChat = async (req , res , next) => {
+
+    try{
+        const {senderId , receiverId} = req.body;
+    
+        const chatIDExist = await personalChat.findOne({
+            where:{
+                [Op.or]:[
+                    {senderId , receiverId},
+                    {receiverId , senderId}
+                ]
+            }
+        });
+        
+        if(chatIDExist){
+            req.success(chatIDExist.chatID,'Chat Existed',200);
+        };
+        
+        const chatID = v4();
+    
+        const newChat = await personalChat.create({
+            senderId , receiverId , chatID
+        })
+    
+        return req.success(newChat.chatID,'Chat Existed',200);
+
+    }catch(err){
+        next(err);
+    }
+};
+
+const sendMessage = async(req , res , next) => {
+    try{
+        const {senderId, message, personalChatId} = req.body;
+    
+        await chatMessage.create({
+            UserId:senderId,
+            message,
+            personalChatId
+        });
+    
+        res.success(null,"success",201);
+    }catch(err){
+        next(err);
+    }
+}
+
+module.exports = {
+    newChat, sendMessage
+}
