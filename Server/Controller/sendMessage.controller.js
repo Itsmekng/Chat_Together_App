@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { personalChat } from '../Model';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 import chatMessage from '../Model/chatMessage.model';
+import ApiError from '../Utils/ApiError.utils';
 
 const newChat = async (req , res , next) => {
 
@@ -50,6 +51,27 @@ const sendMessage = async(req , res , next) => {
     }
 }
 
+const getMessage = async (req , res, next) => {
+
+    try{
+        const { personalChatId } = req.body;
+    
+        const getMessage = await chatMessage.findAll({ 
+            where: { personalChatId }, 
+            order: [ ['createdAt', 'DESC'] ], 
+            limit: 10 
+        });
+    
+        if(!getMessage){
+            throw new ApiError(404,"not chat found");
+        }
+    
+        return res.success(getMessage,"success",200);
+    }catch(err){
+        next(err);
+    }
+}
+
 module.exports = {
-    newChat, sendMessage
+    newChat, sendMessage, getMessage
 }
