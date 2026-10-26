@@ -1,8 +1,8 @@
-import { v4 as uuidv4 } from 'uuid';
-import { personalChat } from '../Model';
-import { Op, where } from 'sequelize';
-import chatMessage from '../Model/chatMessage.model';
-import ApiError from '../Utils/ApiError.utils';
+const uuidv4 = require('uuid');
+const { personalChat } = require('../Model');
+const { Op } = require('sequelize');
+const chatMessage = require('../Model/chatMessage.model');
+const ApiError = require('../Utils/ApiError.utils');
 
 const newChat = async (req , res , next) => {
 
@@ -22,7 +22,7 @@ const newChat = async (req , res , next) => {
             req.success(chatIDExist.chatID,'Chat Existed',200);
         };
         
-        const chatID = v4();
+        const chatID = uuidv4();
     
         const newChat = await personalChat.create({
             senderId , receiverId , chatID
