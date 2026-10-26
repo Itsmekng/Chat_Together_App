@@ -1,5 +1,6 @@
 const { Server } = require('socket.io');
 const auth = require('./Auth/auth');
+const chatHandler = require('./Handler/chatHandler');
 
 module.exports = (server) => {
     const io = new Server(server,{
@@ -15,9 +16,6 @@ module.exports = (server) => {
     io.on('connection', (socket) => {
     // console.log(socket.user.userName);
 
-    socket.on('message',(message) => {
-        console.log(message);
-        io.emit('message',message);
-    });
-})
+        chatHandler(io,socket);
+    })
 }
