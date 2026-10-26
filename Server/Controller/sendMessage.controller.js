@@ -69,7 +69,7 @@ const getMessage = async (req , res, next) => {
         return res.success(getMessage,"success",200);
     }catch(err){
         next(err);
-    }
+    };
 }
 
 module.exports = {
