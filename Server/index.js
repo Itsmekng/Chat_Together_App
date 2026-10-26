@@ -7,6 +7,7 @@ const server = http.createServer(app);
 // const connection = require('./DB/connection.js');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { verifyToken } = require('./Model/user.model');
 // require('./Model/index.js');
 
 // app.use(cors());
@@ -31,8 +32,24 @@ const io = new Server(server,{
     }
 });
 
+io.use((socket , next) => {
+    try{
+        const token = socket.handshake.auth.token;
+    
+        const user = verifyToken(token);
+
+        socket.user = user;
+
+        next();
+    }catch(err){
+        return next(new Error(err));
+    }
+
+
+})
+
 io.on('connection', (socket) => {
-    console.log(socket.id)
+    console.log(socket.user.userName);
 
     socket.on('message',(message) => {
         console.log(message);

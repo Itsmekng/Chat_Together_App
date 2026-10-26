@@ -41,5 +41,9 @@ const getToken = (userId, userName) => {
     return jwt.sign({ userId, userName }, 'shhhhh');
 }
 
+const verifyToken = (token) => {
+    return jwt.verify(token, 'shhhhh');
+}
 
-module.exports = { Users, hashPassword, comparePassword, getToken};
+
+module.exports = { Users, hashPassword, comparePassword, getToken, verifyToken};
