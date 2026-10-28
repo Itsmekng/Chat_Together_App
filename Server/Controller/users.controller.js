@@ -6,6 +6,14 @@ const addUser = async (req , res ,next) => {
     try{
         const {full_name,email,number,password} = req.body;
 
+        const userExist = await Users.findOne({where:{
+            email
+        }})
+
+        if(userExist){
+            throw new ApiError(409,"User already exist");
+        }
+
         const hash  = await hashPassword(password);
     
         const user = await Users.create({

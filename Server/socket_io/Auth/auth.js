@@ -1,8 +1,10 @@
+const { verifyToken } = require('../../Model/user.model.js');
+
 module.exports = (io,socket) => {
     io.use((socket , next) => {
         try{
             const token = socket.handshake.auth.token;
-        
+
             const user = verifyToken(token);
     
             socket.user = user;

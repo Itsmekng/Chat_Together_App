@@ -16,7 +16,8 @@ const Users = sequelize.define("Users" ,{
     },
     email:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:false,
+        unique:true
     },
     number:{
         type:DataTypes.STRING,
@@ -42,7 +43,7 @@ const getToken = (userId, userName) => {
 }
 
 const verifyToken = (token) => {
-    return jwt.verify(token, 'shhhhh');
+    return jwt.verify(JSON.parse(token), 'shhhhh');
 }
 
 
