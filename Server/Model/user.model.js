@@ -2,6 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../DB/connection.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { now } = require('sequelize/lib/utils');
 
 const Users = sequelize.define("Users" ,{
     id:{
@@ -21,11 +22,24 @@ const Users = sequelize.define("Users" ,{
     },
     number:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:false,
+        unique:true
     },
     password:{
         type:DataTypes.STRING,
         allowNull:false
+    },
+    profile_pic:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    is_online:{
+        type:DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    last_seen:{
+        type: DataTypes.DATE,
+        allowNull: true
     }
     
 });
@@ -38,12 +52,12 @@ const comparePassword = (myPlaintextPassword, hash) => {
     return bcrypt.compare(myPlaintextPassword, hash)
 }
 
-const getToken = (userId, userName) => {
-    return jwt.sign({ userId, userName }, 'shhhhh');
+const getToken = (userId, userName, userNumber) => {
+    return jwt.sign({ userId, userName, userNumber }, 'shhhhh');
 }
 
 const verifyToken = (token) => {
-    return jwt.verify(JSON.parse(token), 'shhhhh');
+    return jwt.verify(token, 'shhhhh');
 }
 
 

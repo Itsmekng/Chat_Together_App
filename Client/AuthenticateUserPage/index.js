@@ -7,7 +7,8 @@ async function HandleSignUp(event){
     password = event.target.Password.value
 
     await axios.post("http://localhost:3000/api/v1/user/addUser",{full_name,email,number,password}).then((response) => {
-        localStorage.setItem('token',JSON.stringify(response.data.data));
+        localStorage.setItem('token',JSON.stringify(response.data.data.token));
+        localStorage.setItem('User',JSON.stringify(response.data.data.User));
         alert("User created successfully");
         window.location.href = '../../Client/index.html';
     }).catch((err) => {
@@ -29,7 +30,8 @@ async function HandleSignIn(event){
     password = event.target.Password.value
 
     await axios.post("http://localhost:3000/api/v1/user/loginUser",{email,number,password}).then((response) => {
-        localStorage.setItem('token',JSON.stringify(response.data.data));
+        localStorage.setItem('token',JSON.stringify(response.data.data.token));
+        localStorage.setItem('User',JSON.stringify(response.data.data.User));
         alert("Login Success");
         window.location.href = '../../Client/index.html';
     }).catch((err) => {

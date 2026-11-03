@@ -1,11 +1,29 @@
-module.exports = (io,socket) => {
-    socket.on("join-room",(roomName) => {
-        socket.join(roomName);
-    });
+const { ChatMessage } = require("../../Model");
 
-    socket.on("new-message",({message,roomName}) => {
-        console.log('User',socket.user?.userName,"said:",message);
+module.exports = (io,socket,activeUser) => {
+    socket.on("new-message",async ({message,chatId,userId}) => {
+        try{
 
-        io.emit("new-message",{ username: socket.user?.userName, message});
+            let chatMessage;
+
+            if(activeUser.indexOf(userId) >= 0){
+                chatMessage = await ChatMessage.create({
+                    message,
+                    ChatTypeId:chatId,
+                    UserId:socket.user?.userId,
+                    status:"read"
+                });
+            }else{
+                chatMessage = await ChatMessage.create({
+                    message,
+                    ChatTypeId:chatId,
+                    UserId:socket.user?.userId
+                });
+            }
+
+            io.to(chatId).emit("new-message",{ chatId,userNumber:socket.user?.userNumber, message ,createdAt:chatMessage.createdAt,status:chatMessage.status });
+        }catch(err){
+            console.log(err)
+        }
     });
 };

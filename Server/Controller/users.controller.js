@@ -24,9 +24,9 @@ const addUser = async (req , res ,next) => {
             throw new ApiError(500,"User not created");
         }
 
-        const token = getToken(user.id , user.full_name);
+        const token = getToken(user.id, user.full_name, user.number);
     
-        res.success(token,"User created",201)
+        res.success({token,User:user},"User created",201)
     }catch(err){
         next(err);
     }
@@ -50,12 +50,12 @@ const loginUser = async (req , res ,next) => {
         
         const passwordTrue = await comparePassword(password,user.password);
 
-        const token = getToken(user.id , user.full_name);
+        const token = getToken(user.id , user.full_name, user.number);
 
         if(passwordTrue){
-            res.success(token,"User logged",200);
+            res.success({token,User:user},"User logged",200);
         }else{
-            throw new ApiError(404,"Password is incorrect")
+            throw new ApiError(404,"Password is incorrect");
         }
     
     }catch(err){

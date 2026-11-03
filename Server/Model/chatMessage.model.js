@@ -1,9 +1,10 @@
 const { Sequelize , DataTypes } = require('sequelize');
 const sequelize = require('../DB/connection.js');
 
-const chatMessage = sequelize.define('chatMessage',{
+const ChatMessage = sequelize.define('chatMessage',{
     id:{
         type:DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey:true,
         allowNull:false
     },
@@ -11,11 +12,19 @@ const chatMessage = sequelize.define('chatMessage',{
         type:DataTypes.STRING,
         allowNull:false
     },
+    message_type:{
+        type:DataTypes.STRING,
+        defaultValue:"Text"
+    },
+    file_url:{
+        type:DataTypes.STRING,
+        allowNull:true
+    },
     status:{
         type:DataTypes.STRING,
         defaultValue:"pending",
         allowNull:false
-    },
+    }
 });
 
-module.exports = chatMessage;
+module.exports = ChatMessage;

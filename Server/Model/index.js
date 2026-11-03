@@ -1,15 +1,27 @@
-const { Users } = require('./user.model');
-const chatMessage = require('./chatMessage.model.js')
-const personalChat = require('./personalChat.model');
+const ChatMember = require('./chatMember.model.js');
+const { Users } = require('./user.model.js');
+const ChatMessage = require('./chatMessage.model.js');
+const ChatType = require('./chatType.model.js');
 
-personalChat.hasMany(chatMessage);
-chatMessage.belongsTo(personalChat);
 
-Users.hasMany(chatMessage);
-chatMessage.belongsTo(Users);
+Users.hasMany(ChatType);
+ChatType.belongsTo(Users);
+
+Users.hasMany(ChatMember);
+ChatMember.belongsTo(Users);
+
+Users.hasMany(ChatMessage);
+ChatMessage.belongsTo(Users);
+
+ChatType.hasMany(ChatMember);
+ChatMember.belongsTo(ChatType);
+
+ChatType.hasMany(ChatMessage);
+ChatMessage.belongsTo(ChatType);
 
 module.exports = {
-    personalChat,
-    Users
+    ChatMember,
+    Users,
+    ChatMessage,
+    ChatType
 }
-

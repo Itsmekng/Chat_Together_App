@@ -9,23 +9,22 @@
     <body>
         <nav class="navbar navbar-expand-lg bg-success">
             <div class="container-fluid">
-                <a class="navbar-brand text-light" href="#">Chat Together</a>
+                <div class="navbar-brand text-light">Chat Together</div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active text-light" aria-current="page" href="../index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active text-light" aria-current="page" href="#">Logout</a>
+                        <div role="button" class="nav-link text-light" onclick="logOut()">Logout</div>
+                    </li>
+                    <li class="nav-item userStatus">
+                        
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">Search</button>
-                </form>
                 </div>
             </div>
         </nav>
@@ -36,80 +35,19 @@
             style="height: 90vh;">
 
             <!-- Chat Messages -->
-            <div class="flex-grow-1 overflow-auto p-3 bg-light">
-
-                <div class="text-center mb-4">
-                    <span class="badge bg-secondary">
-                        Today
-                    </span>
-                </div>
-
-                <!-- Received Message -->
-                <div class="d-flex mb-3">
-                    <div class="bg-white border rounded-3 p-3 shadow-sm"
-                        style="max-width: 80%;">
-                        <div>Hello! How are you?</div>
-                        <div class="text-muted text-end mt-1">
-                            <small>10:30 AM</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sent Message -->
-                <div class="d-flex justify-content-end mb-3">
-                    <div class="bg-success text-white rounded-3 p-3"
-                        style="max-width: 80%;">
-                        <div>I'm good! What about you?</div>
-                        <div class="text-white-50 text-end mt-1">
-                            <small>10:31 AM ✓✓</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Received Message -->
-                <div class="d-flex mb-3">
-                    <div class="bg-white border rounded-3 p-3 shadow-sm"
-                        style="max-width: 80%;">
-                        <div>Doing great. Are we meeting today?</div>
-                        <div class="text-muted text-end mt-1">
-                            <small>10:32 AM</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sent Message -->
-                <div class="d-flex justify-content-end mb-3">
-                    <div class="bg-success text-white rounded-3 p-3"
-                        style="max-width: 80%;">
-                        <div>Yes, let's meet at 3 PM.</div>
-                        <div class="text-white-50 text-end mt-1">
-                            <small>10:33 AM ✓✓</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Received Message -->
-                <div class="d-flex mb-3">
-                    <div class="bg-white border rounded-3 p-3 shadow-sm"
-                        style="max-width: 80%;">
-                        <div>Perfect! See you then.</div>
-                        <div class="text-muted text-end mt-1">
-                            <small>10:34 AM</small>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="chatPage flex-grow-1 overflow-auto p-3 bg-light">
             </div>
 
             <!-- Message Input -->
             <div class="border-top bg-white p-3">
-                <form class="d-flex align-items-center gap-2">
+                <form id="sendMessage" class="d-flex align-items-center gap-2">
 
                     <button type="button" class="btn btn-light border">
                         +
                     </button>
 
                     <input type="text"
+                        name="sendMessage"
                         class="form-control rounded-pill"
                         placeholder="Type a message...">
 

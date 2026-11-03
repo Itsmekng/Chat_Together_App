@@ -24,7 +24,7 @@ app.use(errorHandler);
 
 socketIO(server);
 
-connection.sync({force: true}).then(() =>{
+connection.sync().then(() =>{
     const port = 3000;
     // app.listen(port, () => {
     //     console.log("Server listen on localhost port:" ,port)
