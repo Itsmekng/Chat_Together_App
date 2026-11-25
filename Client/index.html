@@ -47,7 +47,7 @@
                         <small class="text-muted">Group conversations</small>
                     </div>
 
-                    <div class="list-group list-group-flush">
+                    <div class="list-group list-group-flush allChatGroupMessage">
                     </div>
                 </div>
 
@@ -69,24 +69,28 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <form onsubmit="searchUser(event)">
-                            <div class="mb-3">
+                            <div class="mb-3 personalChat d-block">
                                 <label for="userNumber" class="form-label">User Number</label>
                                 <input type="number" class="form-control" id="userNumber">
                                 <div id="userNotExistError" class="text-danger fs-6 d-none">User not exist with this number !</div>
                             </div>
                             <div class="mb-3">
-                                <select name="chatOption" class="form-select">
+                                <select name="chatOption" class="form-select chatType">
                                     <option selected value="personalChat">Personal Chat</option>
-                                    <option value="broadcast">Broadcast</option>
-                                    <option value="group">Group</option>
+                                    <option value="group">Group Chat</option>
                                 </select>
                             </div>
-                            <!-- <div class="mb-3">
+                            <div class="mb-3 d-none chatGroup">
+                                <label for="groupName" class="form-label">Group Name</label>
+                                <input type="text" class="form-control" name="groupName" id="groupName">
+                            </div>
+                            <div class="mb-3 d-none groupChat">
                                 <label for="addUser" class="form-label">Add User</label>
                                 <input type="number" class="form-control" id="addUser">
-                                <div>6264069679</div>
+                                <ul class="groupUser list-unstyled text-nowrap d-flex mt-1 overflow-auto">
+                                </ul>
                             </div>
-                            <button type="button" class="btn btn-success">Add</button> -->
+                            <button type="button" class="btn btn-success d-none addUserbtn">Add</button>
                             <button type="submit" class="btn btn-success">Submit</button>
                         </form>
                     </div>

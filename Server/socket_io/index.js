@@ -7,6 +7,8 @@ const AllChat = require('./Handler/AllChat.js');
 const getRecentMessage = require('./Handler/getRecentMessage.js');
 const activeUsers = require('./Handler/activeUsers.js');
 const inactiveUser = require('./Handler/inactiveUser.js');
+const typingNotification = require('./Handler/typingNotification.js');
+const Allgroup = require('./Handler/Allgroup.js');
 
 module.exports = (server) => {
     const io = new Server(server,{
@@ -30,11 +32,15 @@ module.exports = (server) => {
             }
         }
 
-        activeUsers(io,socket,activeUser)
+        activeUsers(io,socket,activeUser);
+
+        typingNotification(io,socket);
 
         getRecentMessage(io,socket);
         
         AllChat(io,socket);
+        
+        Allgroup(io,socket);
         
         getAllSocketId(io,socket);
         
@@ -54,7 +60,7 @@ module.exports = (server) => {
             io.emit('OfflineUser', {
                 userId
             });
-        });        
+        });
     });
 }
 

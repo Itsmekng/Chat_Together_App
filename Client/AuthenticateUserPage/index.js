@@ -10,11 +10,11 @@ async function HandleSignUp(event){
         localStorage.setItem('token',JSON.stringify(response.data.data.token));
         localStorage.setItem('User',JSON.stringify(response.data.data.User));
         alert("User created successfully");
-        window.location.href = '../../Client/index.html';
+        window.location.href = '/index.html';
     }).catch((err) => {
         alert(err.response.data.message);
         if(err.response.data.message == "User already exist"){
-            window.location.href = '../../Client/AuthenticateUserPage/signIn.html';
+            window.location.href = '/AuthenticateUserPage/signIn.html';
         }
     });
 
@@ -33,7 +33,7 @@ async function HandleSignIn(event){
         localStorage.setItem('token',JSON.stringify(response.data.data.token));
         localStorage.setItem('User',JSON.stringify(response.data.data.User));
         alert("Login Success");
-        window.location.href = '../../Client/index.html';
+        window.location.href = '/index.html';
     }).catch((err) => {
         alert(err.response.data.message);
     });

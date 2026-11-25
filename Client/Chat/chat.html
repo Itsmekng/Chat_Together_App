@@ -22,7 +22,13 @@
                         <div role="button" class="nav-link text-light" onclick="logOut()">Logout</div>
                     </li>
                     <li class="nav-item userStatus">
-                        
+                    </li>
+                    <li class="nav-item dropdown showMembers d-none">
+                        <div class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" >
+                            Members
+                        </div>
+                        <ul class="dropdown-menu bg-success groupMembers">
+                        </ul>
                     </li>
                 </ul>
                 </div>
@@ -39,16 +45,45 @@
             </div>
 
             <!-- Message Input -->
-            <div class="border-top bg-white p-3">
+            <div class="border-top bg-white p-3 d-block"> 
+                <div class="d-none align-items-center gap-2 justify-content-between mb-3 expandedChat">
+                    <img class="imageToUpload" src="/public/icon/folder.png" width="35px" alt="">
+                    <div class="d-flex gap-3">
+
+                        <div class="d-none form-control AIText">
+                            Hello Hi there , How you are doing
+                        </div>
+                        <div class="d-none suggestionText1 p-2 border">
+                            Polite
+                        </div>
+    
+                        <div class="d-none suggestionText2 p-2 border">
+                            Formal
+                        </div>
+    
+                        <div class="d-none suggestionText3 p-2 border">
+                            Shorten
+                        </div>
+
+                        <button class="btn btn-outline-success text-nowrap AskAI d-block">
+                            Ask AI
+                        </button>
+
+                        <button class="d-none btn btn-outline-success text-nowrap changeText">
+                            Change
+                        </button>
+                    </div>
+                </div>
+
                 <form id="sendMessage" class="d-flex align-items-center gap-2">
 
-                    <button type="button" class="btn btn-light border">
+                    <button type="button" class="btn border expandChat">
                         +
                     </button>
-
+                    <input type="file" accept="image/*,video/*,.pdf,.doc,.docx" id="uploadImage" name="chatImage" class="d-none" >
                     <input type="text"
                         name="sendMessage"
-                        class="form-control rounded-pill"
+                        class="form-control rounded-pill textMessage"
                         placeholder="Type a message...">
 
                     <button type="submit"

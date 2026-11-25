@@ -1,4 +1,4 @@
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 const { ChatType, ChatMessage, ChatMember, Users } = require("../../Model");
 
 
@@ -27,6 +27,26 @@ module.exports = (io,socket) => {
             include:Users
         });
 
-        socket.emit("AllChat", {chats ,chatMembers});
+        const pendingChatCount = await ChatMessage.findAll({
+            attributes: [
+                'ChatTypeId',
+                [Sequelize.fn('COUNT', Sequelize.col('id')), 'pendingCount']
+            ],
+            where: {
+                ChatTypeId: chatId,
+                status: "pending"
+            },
+            group: ['ChatTypeId'],
+            raw: true
+        });
+
+        const finalPendingChatCount = chatId.map(id => ({
+            ChatTypeId: id,
+            pendingCount: Number(
+                pendingChatCount.find(item => item.ChatTypeId == id)?.pendingCount || 0
+            )
+        }));
+
+        socket.emit("AllChat", {chats ,chatMembers ,pendingChatCount:finalPendingChatCount });
     });
 }

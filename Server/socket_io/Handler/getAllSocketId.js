@@ -6,7 +6,6 @@ module.exports = (io, socket) => {
             if (!Array.isArray(chatId) || chatId.length === 0) {
                 return socket.emit("chatId", []);
             }
-
             // Join all personal chat rooms
             chatId.forEach((id) => {
                 socket.join(String(id));
